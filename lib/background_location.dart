@@ -16,19 +16,13 @@ class BackgroundLocation {
   static const EventChannel _eventChannel =
       const EventChannel('$_pluginId/background_location_stream');
 
-  static StreamSubscription _streamSubscriptionUpdates;
-
   /// Stop receiving location updates
   static stopLocationService() async {
-    _streamSubscriptionUpdates?.cancel();
     return await _channel.invokeMethod("stop_location_service");
   }
 
   /// Start receiving location updated
   static startLocationService({double distanceFilter = 0.0}) async {
-    _channel.setMethodCallHandler((MethodCall methodCall) async {
-      print("${methodCall.method}");
-    });
     return await _channel.invokeMethod("start_location_service",
         <String, dynamic>{"distance_filter": distanceFilter});
   }
@@ -100,8 +94,7 @@ class BackgroundLocation {
   /// Register a function to receive location updates as long as the location
   /// service has started
   static getLocationUpdates(Function(Location) location) {
-    _streamSubscriptionUpdates =
-        _eventChannel.receiveBroadcastStream().listen((event) {
+    _eventChannel.receiveBroadcastStream().listen((event) {
       Map locationData = Map.from(event);
 
       // Call the user passed function
