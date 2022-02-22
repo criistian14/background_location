@@ -5,24 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="637d4c7a-6891-4fb3-9c72-34ad7702802c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/BackgroundLocationService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/LocationHandlerService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/com/example/christian/test_background_location/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/res/drawable-v21/launch_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/android/app/src/main/res/values-night/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/BackgroundLocationPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/BackgroundLocationPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/BackgroundLocationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/BackgroundLocationService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/LocationUpdatesService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location/LocationUpdatesService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/.settings/org.eclipse.buildship.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/com/example/backgeound_location_example/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/com/example/backgeound_location_example/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/com/example/backgeound_location_example/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/background_location.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/background_location.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +57,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -52,6 +72,27 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1645564956" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
@@ -61,6 +102,7 @@
     <option name="height" value="1027" />
   </component>
   <component name="ProjectId" id="24Cpa2B1sEUltYQgsYVn7Tp49oZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -101,16 +143,21 @@
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="/opt/flutter/bin/cache/artifacts/engine/android-x64/flutter.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/almoullim/background_location" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" singleton="false">
@@ -139,6 +186,11 @@
       <workItem from="1643249647821" duration="1171000" />
       <workItem from="1643251421478" duration="1060000" />
       <workItem from="1643254066446" duration="571000" />
+      <workItem from="1645563304119" duration="2220000" />
+      <workItem from="1645565556505" duration="411000" />
+      <workItem from="1645566466543" duration="1145000" />
+      <workItem from="1645572749966" duration="142000" />
+      <workItem from="1645572956693" duration="475000" />
     </task>
     <servers />
   </component>
@@ -187,6 +239,10 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/backgeound_location.dart">

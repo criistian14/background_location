@@ -18,7 +18,7 @@ class LocationUpdatesService : Service() {
         val distanceFilter = intent?.getDoubleExtra("distance_filter", 0.0)
         if (distanceFilter != null) {
             createLocationRequest(distanceFilter)
-        }else {
+        } else {
             createLocationRequest(0.0)
         }
         return mBinder
@@ -34,7 +34,7 @@ class LocationUpdatesService : Service() {
     companion object {
         var NOTIFICATION_TITLE = "Background service is running"
         var NOTIFICATION_MESSAGE = "Background service is running"
-        var NOTIFICATION_ICON ="@mipmap/ic_launcher"
+        var NOTIFICATION_ICON = "@mipmap/ic_launcher"
 
         private val PACKAGE_NAME = "com.google.android.gms.location.sample.locationupdatesforegroundservice"
         private val TAG = LocationUpdatesService::class.java.simpleName
@@ -61,14 +61,14 @@ class LocationUpdatesService : Service() {
             val pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val builder = NotificationCompat.Builder(this, "BackgroundLocation")
-                    .setContentTitle(NOTIFICATION_TITLE)
-                    .setOngoing(true)
-                    .setSound(null)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setSmallIcon(resources.getIdentifier(NOTIFICATION_ICON, "mipmap", packageName))
-                    .setWhen(System.currentTimeMillis())
-                    .setStyle(NotificationCompat.BigTextStyle().bigText(NOTIFICATION_MESSAGE))
-                    .setContentIntent(pendingIntent)
+                .setContentTitle(NOTIFICATION_TITLE)
+                .setOngoing(true)
+                .setSound(null)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(resources.getIdentifier(NOTIFICATION_ICON, "mipmap", packageName))
+                .setWhen(System.currentTimeMillis())
+                .setStyle(NotificationCompat.BigTextStyle().bigText(NOTIFICATION_MESSAGE))
+                .setContentIntent(pendingIntent)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 builder.setChannelId(CHANNEL_ID)
@@ -84,9 +84,9 @@ class LocationUpdatesService : Service() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         mLocationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-                onNewLocation(locationResult!!.lastLocation)
+                onNewLocation(locationResult.lastLocation)
             }
         }
 
@@ -123,8 +123,11 @@ class LocationUpdatesService : Service() {
     fun requestLocationUpdates() {
         Utils.setRequestingLocationUpdates(this, true)
         try {
-            mFusedLocationClient!!.requestLocationUpdates(mLocationRequest,
-                    mLocationCallback!!, Looper.myLooper())
+            mFusedLocationClient!!.requestLocationUpdates(
+                mLocationRequest!!,
+                mLocationCallback!!,
+                Looper.myLooper()!!
+            )
         } catch (unlikely: SecurityException) {
             Utils.setRequestingLocationUpdates(this, false)
         }
@@ -146,12 +149,12 @@ class LocationUpdatesService : Service() {
     private fun getLastLocation() {
         try {
             mFusedLocationClient!!.lastLocation
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful && task.result != null) {
-                            mLocation = task.result
-                        } else {
-                        }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful && task.result != null) {
+                        mLocation = task.result
+                    } else {
                     }
+                }
         } catch (unlikely: SecurityException) {
         }
 
