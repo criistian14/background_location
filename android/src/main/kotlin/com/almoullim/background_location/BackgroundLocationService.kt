@@ -106,6 +106,8 @@ class BackgroundLocationService : MethodChannel.MethodCallHandler, EventChannel.
                 )
             )
             "set_configuration" -> result.success(setConfiguration(call.argument<String>("interval")?.toLongOrNull()))
+            "get_current_location" -> LocationHandlerService.getCurrentLocation(context!!, result)
+
             else -> result.notImplemented()
         }
     }

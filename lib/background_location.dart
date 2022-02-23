@@ -12,9 +12,9 @@ class BackgroundLocation {
   // This channels are also referenced inside both iOS and Android classes
   static const String _pluginId = "almoullim.com";
   static const MethodChannel _channel =
-      const MethodChannel('$_pluginId/background_location');
+  const MethodChannel('$_pluginId/background_location');
   static const EventChannel _eventChannel =
-      const EventChannel('$_pluginId/background_location_stream');
+  const EventChannel('$_pluginId/background_location_stream');
 
   /// Stop receiving location updates
   static stopLocationService() async {
@@ -47,26 +47,28 @@ class BackgroundLocation {
     }
   }
 
-  /// Get the current location once.
-  Future<Location> getCurrentLocation() async {
-    Completer<Location> completer = Completer();
-
-    Location _location = Location();
-    await getLocationUpdates((location) {
-      _location = _location.copyWith(
-        latitude: location.latitude,
-        longitude: location.longitude,
-        accuracy: location.accuracy,
-        altitude: location.altitude,
-        bearing: location.bearing,
-        speed: location.speed,
-        time: location.time,
+  // Get the current location
+  static Future<Location> getCurrentLocation() async {
+    try {
+      final response = await _channel.invokeMethod(
+        "get_current_location",
       );
 
-      completer.complete(_location);
-    });
+      Map locationData = Map.from(response);
 
-    return completer.future;
+      return Location(
+        latitude: locationData["latitude"],
+        longitude: locationData["longitude"],
+        altitude: locationData["altitude"],
+        accuracy: locationData["accuracy"],
+        bearing: locationData["bearing"],
+        speed: locationData["speed"],
+        time: locationData["time"],
+        isMock: locationData["is_mock"],
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   /// Ask the user for location permissions
