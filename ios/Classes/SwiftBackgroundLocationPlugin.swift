@@ -55,6 +55,40 @@ public class SwiftBackgroundLocationPlugin: NSObject, FlutterPlugin, CLLocationM
                     result(location)
                 }
 
+
+            case "open_app_settings":
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: { success in
+                    result(success)
+                })
+
+            case "open_location_settings":
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: { success in
+                    result(success)
+                })
+                result(true)
+
+
+            case "check_permission":
+                let status = SwiftBackgroundLocationPlugin.locationManager.authorizationStatus()
+
+                switch status {
+                    case .authorizedAlways:
+                        result(3)
+
+                    case .authorizedWhenInUse:
+                        result(2)
+
+                    case .denied:
+                        result(0)
+
+                    case .notDetermined:
+                        result(4)
+
+                    case .restricted:
+                        result(1)
+                }
+
+
             default:
                 result(FlutterMethodNotImplemented)
         }

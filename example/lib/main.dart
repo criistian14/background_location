@@ -23,6 +23,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void dispose() {
+    BackgroundLocation.stopLocationService();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -39,29 +45,29 @@ class _MyAppState extends State<MyApp> {
               locationData("Bearing: " + bearing),
               locationData("Speed: " + speed),
               locationData("Time: " + time),
-              RaisedButton(
-                  onPressed: () async {
-                    await BackgroundLocation.setAndroidNotification(
-                      title: "Background service is running",
-                      message: "Background location in progress",
-                      icon: "@mipmap/ic_launcher",
-                    );
-                    //await BackgroundLocation.setAndroidConfiguration(1000);
-                    await BackgroundLocation.startLocationService(
-                        distanceFilter: 20);
-                    BackgroundLocation.getLocationUpdates((location) {
-                      setState(() {
-                        this.latitude = location.latitude.toString();
-                        this.longitude = location.longitude.toString();
-                        this.accuracy = location.accuracy.toString();
-                        this.altitude = location.altitude.toString();
-                        this.bearing = location.bearing.toString();
-                        this.speed = location.speed.toString();
-                        this.time = DateTime.fromMillisecondsSinceEpoch(
-                                location.time.toInt())
-                            .toString();
-                      });
-                      print("""\n
+              ElevatedButton(
+                onPressed: () async {
+                  await BackgroundLocation.setAndroidNotification(
+                    title: "Background service is running",
+                    message: "Background location in progress",
+                    icon: "@mipmap/ic_launcher",
+                  );
+                  //await BackgroundLocation.setAndroidConfiguration(1000);
+                  await BackgroundLocation.startLocationService(
+                      distanceFilter: 20);
+                  BackgroundLocation.getLocationUpdates((location) {
+                    setState(() {
+                      this.latitude = location.latitude.toString();
+                      this.longitude = location.longitude.toString();
+                      this.accuracy = location.accuracy.toString();
+                      this.altitude = location.altitude.toString();
+                      this.bearing = location.bearing.toString();
+                      this.speed = location.speed.toString();
+                      this.time = DateTime.fromMillisecondsSinceEpoch(
+                              location.time.toInt())
+                          .toString();
+                    });
+                    print("""\n
                         Latitude:  $latitude
                         Longitude: $longitude
                         Altitude: $altitude
@@ -70,19 +76,46 @@ class _MyAppState extends State<MyApp> {
                         Speed: $speed
                         Time: $time
                       """);
-                    });
-                  },
-                  child: Text("Start Location Service")),
-              RaisedButton(
-                  onPressed: () {
-                    BackgroundLocation.stopLocationService();
-                  },
-                  child: Text("Stop Location Service")),
-              RaisedButton(
-                  onPressed: () {
-                    getCurrentLocation();
-                  },
-                  child: Text("Get Current Location")),
+                  });
+                },
+                child: Text(
+                  "Start Location Service",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BackgroundLocation.stopLocationService();
+                },
+                child: Text(
+                  "Stop Location Service",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  getCurrentLocation();
+                },
+                child: Text(
+                  "Get Current Location",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: checkPermissions,
+                child: Text(
+                  "Check Permissions",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: openAppSettings,
+                child: Text(
+                  "Open App Settings",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: openLocationSettings,
+                child: Text(
+                  "Open Location Settings",
+                ),
+              ),
             ],
           ),
         ),
@@ -107,9 +140,21 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  @override
-  void dispose() {
-    BackgroundLocation.stopLocationService();
-    super.dispose();
+  void checkPermissions() {
+    BackgroundLocation.checkPermission().then((permission) {
+      print("This is Permission Status $permission");
+    });
+  }
+
+  void openAppSettings() {
+    BackgroundLocation.openAppSettings().then((opened) {
+      print("Can open App Settings $opened");
+    });
+  }
+
+  void openLocationSettings() {
+    BackgroundLocation.openLocationSettings().then((opened) {
+      print("Can open Location Settings $opened");
+    });
   }
 }
