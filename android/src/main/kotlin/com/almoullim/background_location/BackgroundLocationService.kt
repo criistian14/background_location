@@ -107,6 +107,10 @@ class BackgroundLocationService : MethodChannel.MethodCallHandler, EventChannel.
             )
             "set_configuration" -> result.success(setConfiguration(call.argument<String>("interval")?.toLongOrNull()))
             "get_current_location" -> LocationHandlerService.getCurrentLocation(context!!, result)
+            "open_app_settings" -> LocationHandlerService.openAppSettings(context!!, result)
+            "open_location_settings" -> LocationHandlerService.openLocationSettings(context!!, result)
+            "check_permission" -> LocationHandlerService.checkPermission(context!!, result)
+            "is_location_service_enabled" -> LocationHandlerService.isLocationServiceEnabled(context!!, result)
 
             else -> result.notImplemented()
         }

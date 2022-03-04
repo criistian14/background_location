@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io' show Platform;
+import 'dart:math';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -12,9 +14,9 @@ class BackgroundLocation {
   // This channels are also referenced inside both iOS and Android classes
   static const String _pluginId = "almoullim.com";
   static const MethodChannel _channel =
-  const MethodChannel('$_pluginId/background_location');
+      const MethodChannel('$_pluginId/background_location');
   static const EventChannel _eventChannel =
-  const EventChannel('$_pluginId/background_location_stream');
+      const EventChannel('$_pluginId/background_location_stream');
 
   /// Stop receiving location updates
   static stopLocationService() async {
@@ -87,11 +89,11 @@ class BackgroundLocation {
     }
   }
 
-  /// Check what the current permissions status is
-  static Future<PermissionStatus> checkPermissions() async {
-    PermissionStatus permission = await Permission.locationWhenInUse.status;
-    return permission;
-  }
+  // /// Check what the current permissions status is
+  // static Future<PermissionStatus> checkPermissions() async {
+  //   PermissionStatus permission = await Permission.locationWhenInUse.status;
+  //   return permission;
+  // }
 
   /// Register a function to receive location updates as long as the location
   /// service has started
@@ -114,12 +116,87 @@ class BackgroundLocation {
       );
     });
   }
+
+  /// Calculates the distance between the supplied coordinates in meters.
+  ///
+  /// The distance between the coordinates is calculated using the Haversine
+  /// formula (see https://en.wikipedia.org/wiki/Haversine_formula). The
+  /// supplied coordinates [startLatitude], [startLongitude], [endLatitude] and
+  /// [endLongitude] should be supplied in degrees.
+  static double distanceBetween({
+    @required double startLatitude,
+    @required double startLongitude,
+    @required double endLatitude,
+    @required double endLongitude,
+  }) {
+    var earthRadius = 6378137.0;
+    var dLat = _toRadians(endLatitude - startLatitude);
+    var dLon = _toRadians(endLongitude - startLongitude);
+
+    var a = pow(sin(dLat / 2), 2) +
+        pow(sin(dLon / 2), 2) *
+            cos(_toRadians(startLatitude)) *
+            cos(_toRadians(endLatitude));
+    var c = 2 * asin(sqrt(a));
+
+    return earthRadius * c;
+  }
+
+  static _toRadians(double degree) {
+    return degree * pi / 180;
+  }
+
+  /// Opens the App settings page.
+  ///
+  /// Returns [true] if the location settings page could be opened, otherwise
+  /// [false] is returned.
+  static Future<bool> openAppSettings() async {
+    try {
+      return await _channel.invokeMethod("open_app_settings");
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Opens the location settings page.
+  ///
+  /// Returns [true] if the location settings page could be opened, otherwise
+  /// [false] is returned.
+  static Future<bool> openLocationSettings() async {
+    try {
+      return await _channel.invokeMethod("open_location_settings");
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Returns a [Future] indicating if the user allows the App to access
+  /// the device's location.
+  static Future<LocationPermission> checkPermission() async {
+    try {
+      final int permission = await _channel.invokeMethod('check_permission');
+
+      return permission.toLocationPermission();
+    } on PlatformException catch (e) {
+      return null;
+    }
+  }
+
+  /// Returns a [Future] containing a [bool] value indicating whether location
+  /// services are enabled on the device.
+  static Future<bool> isLocationServiceEnabled() async {
+    try {
+      return await _channel.invokeMethod('is_location_service_enabled');
+    } on PlatformException catch (e) {
+      return null;
+    }
+  }
 }
 
 /// An object containing information
 /// about the user current location
 @immutable
-class Location {
+class Location extends Equatable {
   const Location({
     this.longitude,
     this.latitude,
@@ -173,5 +250,62 @@ class Location {
       time: time ?? this.time,
       isMock: isMock ?? this.isMock,
     );
+  }
+
+  @override
+  List<Object> get props => [
+        latitude,
+        longitude,
+        altitude,
+        bearing,
+        accuracy,
+        speed,
+        time,
+        isMock,
+      ];
+}
+
+/// Represent the possible location permissions.
+enum LocationPermission {
+  /// This is the initial state on both Android and iOS, but on Android the
+  /// user can still choose to deny permissions, meaning the App can still
+  /// request for permission another time.
+  denied,
+
+  /// Permission to access the device's location is permenantly denied. When
+  /// requestiong permissions the permission dialog will not been shown until
+  /// the user updates the permission in the App settings.
+  deniedForever,
+
+  /// Permission to access the device's location is allowed only while
+  /// the App is in use.
+  whileInUse,
+
+  /// Permission to access the device's location is allowed even when the
+  /// App is running in the background.
+  always
+}
+
+/// Provides extension methods on the LocationAccuracy enum.
+extension IntergerExtensions on int {
+  /// Tries to convert the int value to a LocationPermission enum value.
+  ///
+  /// Throws an InvalidPermissionException if the int value cannot be
+  /// converted to a LocationPermission.
+  LocationPermission toLocationPermission() {
+    switch (this) {
+      case 0:
+        return LocationPermission.denied;
+      case 1:
+        return LocationPermission.deniedForever;
+      case 2:
+        return LocationPermission.whileInUse;
+      case 3:
+        return LocationPermission.always;
+      default:
+        throw Exception(
+          'Unable to convert the value "$this" into a LocationPermission.',
+        );
+    }
   }
 }

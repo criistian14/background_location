@@ -18,11 +18,9 @@ package com.almoullim.background_location
 
 
 import android.content.Context
-import android.location.Location
+import android.content.pm.PackageManager
 import android.preference.PreferenceManager
 
-import java.text.DateFormat
-import java.util.Date
 
 internal object Utils {
 
@@ -40,6 +38,24 @@ internal object Utils {
                 .edit()
                 .putBoolean(KEY_REQUESTING_LOCATION_UPDATES, requestingLocationUpdates)
                 .apply()
+    }
+
+    fun hasPermissionInManifest(context: Context, permission: String): Boolean {
+        try {
+            val info = context
+                .packageManager
+                .getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
+            if (info.requestedPermissions != null) {
+                for (p in info.requestedPermissions) {
+                    if (p == permission) {
+                        return true
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
     }
 
 }
