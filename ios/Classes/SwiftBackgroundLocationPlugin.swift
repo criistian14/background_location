@@ -88,6 +88,9 @@ public class SwiftBackgroundLocationPlugin: NSObject, FlutterPlugin, CLLocationM
                         result(1)
                 }
 
+            case "is_location_service_enabled":
+                let isEnabled = SwiftBackgroundLocationPlugin.locationManager.locationServicesEnabled()
+                result(isEnabled);
 
             default:
                 result(FlutterMethodNotImplemented)

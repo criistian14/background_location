@@ -14,9 +14,9 @@ class BackgroundLocation {
   // This channels are also referenced inside both iOS and Android classes
   static const String _pluginId = "almoullim.com";
   static const MethodChannel _channel =
-  const MethodChannel('$_pluginId/background_location');
+      const MethodChannel('$_pluginId/background_location');
   static const EventChannel _eventChannel =
-  const EventChannel('$_pluginId/background_location_stream');
+      const EventChannel('$_pluginId/background_location_stream');
 
   /// Stop receiving location updates
   static stopLocationService() async {
@@ -174,10 +174,19 @@ class BackgroundLocation {
   /// the device's location.
   static Future<LocationPermission> checkPermission() async {
     try {
-      // ignore: omit_local_variable_types
       final int permission = await _channel.invokeMethod('check_permission');
 
       return permission.toLocationPermission();
+    } on PlatformException catch (e) {
+      return null;
+    }
+  }
+
+  /// Returns a [Future] containing a [bool] value indicating whether location
+  /// services are enabled on the device.
+  static Future<bool> isLocationServiceEnabled() async {
+    try {
+      return await _channel.invokeMethod('is_location_service_enabled');
     } on PlatformException catch (e) {
       return null;
     }
@@ -244,8 +253,7 @@ class Location extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [
+  List<Object> get props => [
         latitude,
         longitude,
         altitude,

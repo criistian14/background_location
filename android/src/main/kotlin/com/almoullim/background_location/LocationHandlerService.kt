@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -176,6 +177,19 @@ class LocationHandlerService {
             }
 
             return permissions
+        }
+
+
+        fun isLocationServiceEnabled(context: Context, result: MethodChannel.Result) {
+            val locationMgr: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            val isEnabled: Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                locationMgr.isLocationEnabled
+            } else {
+                locationMgr.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            }
+
+            result.success(isEnabled)
         }
     }
 }
