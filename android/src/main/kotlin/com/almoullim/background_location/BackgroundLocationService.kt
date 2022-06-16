@@ -217,8 +217,8 @@ class BackgroundLocationService : MethodChannel.MethodCallHandler, EventChannel.
      */
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>?,
-        grantResults: IntArray?
+        permissions: Array<out String>,
+        grantResults: IntArray
     ): Boolean {
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             when {
