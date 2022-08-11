@@ -43,7 +43,7 @@ public class SwiftBackgroundLocationPlugin: NSObject, FlutterPlugin, CLLocationM
 
 
         result(true)
-
+    
 
 /*
         switch call.method {
@@ -108,7 +108,7 @@ public class SwiftBackgroundLocationPlugin: NSObject, FlutterPlugin, CLLocationM
 
             default:
                 result(FlutterMethodNotImplemented)*/
-        }
+        
     }
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
