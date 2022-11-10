@@ -30,7 +30,7 @@ class BackgroundLocation {
   }
 
   static setAndroidNotification(
-      {String title, String message, String icon}) async {
+      {String? title, String? message, String? icon}) async {
     if (Platform.isAndroid) {
       return await _channel.invokeMethod("set_android_notification",
           <String, dynamic>{"title": title, "message": message, "icon": icon});
@@ -50,7 +50,7 @@ class BackgroundLocation {
   }
 
   // Get the current location
-  static Future<Location> getCurrentLocation() async {
+  static Future<Location?> getCurrentLocation() async {
     try {
       final response = await _channel.invokeMethod(
         "get_current_location",
@@ -74,7 +74,7 @@ class BackgroundLocation {
   }
 
   /// Ask the user for location permissions
-  static getPermissions({Function onGranted, Function onDenied}) async {
+  static getPermissions({Function? onGranted, Function? onDenied}) async {
     await Permission.locationWhenInUse.request();
     if (await Permission.locationWhenInUse.isGranted) {
       if (onGranted != null) {
@@ -124,16 +124,16 @@ class BackgroundLocation {
   /// supplied coordinates [startLatitude], [startLongitude], [endLatitude] and
   /// [endLongitude] should be supplied in degrees.
   static double distanceBetween({
-    @required double startLatitude,
-    @required double startLongitude,
-    @required double endLatitude,
-    @required double endLongitude,
+    required double startLatitude,
+    required double startLongitude,
+    required double endLatitude,
+    required double endLongitude,
   }) {
     var earthRadius = 6378137.0;
     var dLat = _toRadians(endLatitude - startLatitude);
     var dLon = _toRadians(endLongitude - startLongitude);
 
-    var a = pow(sin(dLat / 2), 2) +
+    num a = pow(sin(dLat / 2), 2) +
         pow(sin(dLon / 2), 2) *
             cos(_toRadians(startLatitude)) *
             cos(_toRadians(endLatitude));
@@ -150,7 +150,7 @@ class BackgroundLocation {
   ///
   /// Returns [true] if the location settings page could be opened, otherwise
   /// [false] is returned.
-  static Future<bool> openAppSettings() async {
+  static Future<bool?> openAppSettings() async {
     try {
       return await _channel.invokeMethod("open_app_settings");
     } catch (e) {
@@ -162,7 +162,7 @@ class BackgroundLocation {
   ///
   /// Returns [true] if the location settings page could be opened, otherwise
   /// [false] is returned.
-  static Future<bool> openLocationSettings() async {
+  static Future<bool?> openLocationSettings() async {
     try {
       return await _channel.invokeMethod("open_location_settings");
     } catch (e) {
@@ -172,22 +172,22 @@ class BackgroundLocation {
 
   /// Returns a [Future] indicating if the user allows the App to access
   /// the device's location.
-  static Future<LocationPermission> checkPermission() async {
+  static Future<LocationPermission?> checkPermission() async {
     try {
-      final int permission = await _channel.invokeMethod('check_permission');
+      final int? permission = await _channel.invokeMethod('check_permission');
 
       return permission.toLocationPermission();
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       return null;
     }
   }
 
   /// Returns a [Future] containing a [bool] value indicating whether location
   /// services are enabled on the device.
-  static Future<bool> isLocationServiceEnabled() async {
+  static Future<bool?> isLocationServiceEnabled() async {
     try {
       return await _channel.invokeMethod('is_location_service_enabled');
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       return null;
     }
   }
@@ -208,14 +208,14 @@ class Location extends Equatable {
     this.isMock,
   });
 
-  final double latitude;
-  final double longitude;
-  final double altitude;
-  final double bearing;
-  final double accuracy;
-  final double speed;
-  final double time;
-  final bool isMock;
+  final double? latitude;
+  final double? longitude;
+  final double? altitude;
+  final double? bearing;
+  final double? accuracy;
+  final double? speed;
+  final double? time;
+  final bool? isMock;
 
   Map<String, dynamic> toMap() {
     return {
@@ -231,14 +231,14 @@ class Location extends Equatable {
   }
 
   Location copyWith({
-    double latitude,
-    double longitude,
-    double altitude,
-    double bearing,
-    double accuracy,
-    double speed,
-    double time,
-    bool isMock,
+    double? latitude,
+    double? longitude,
+    double? altitude,
+    double? bearing,
+    double? accuracy,
+    double? speed,
+    double? time,
+    bool? isMock,
   }) {
     return Location(
       latitude: latitude ?? this.latitude,
@@ -253,7 +253,7 @@ class Location extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         latitude,
         longitude,
         altitude,
@@ -287,7 +287,7 @@ enum LocationPermission {
 }
 
 /// Provides extension methods on the LocationAccuracy enum.
-extension IntergerExtensions on int {
+extension IntergerExtensions on int? {
   /// Tries to convert the int value to a LocationPermission enum value.
   ///
   /// Throws an InvalidPermissionException if the int value cannot be
